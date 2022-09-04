@@ -4,7 +4,12 @@
       <i class="el-icon-tickets"></i>
       <span>数据列表</span>
       <el-button size="mini" class="btn-add" @click="handleunCheckList()" style="margin-left: 20px">未检查</el-button>
-      <el-button size="mini" class="btn-add" @click="handleCheckedList()" style="margin-left: 10px">已检查</el-button>
+      <el-button size="mini" class="btn-add" @click="handleCheckedList()" style="margin-left: 20px">已检查</el-button>
+      <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
+        <el-form-item label="poi查询：">
+          <el-input v-model="listQuery.poi_id" class="input-width" placeholder="poi_id" clearable></el-input>
+        </el-form-item>
+      </el-form>
     </el-card>
     <div class="table-container">
       <el-table ref="checkTable"
@@ -150,7 +155,8 @@
         <el-form-item label="纬度：">
           <el-input v-model="check.lat" style="width: 250px"></el-input>
         </el-form-item>
-        <el-form-item label="审核状态：">
+        <span style="margin-left: 160px">0:不修改；1:修改；2:下线</span>
+       <el-form-item label="审核状态：">
           <el-input v-model="check.checkStatus" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="审核描述：">
@@ -181,6 +187,7 @@
     pageNum: 1,
     pageSize: 10,
     status: 0,
+    poi_id: -1,
     username: null
   };
   const defaultCheck = {
@@ -211,7 +218,7 @@
         total: null,
         listLoading: false,
         dialogVisible: false,
-        check: Object.assign({}, defaultCheck),
+        check: Object.assign({}, defaultCheck)
       }
     },
     created() {
